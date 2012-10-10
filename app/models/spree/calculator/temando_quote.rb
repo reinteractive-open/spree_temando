@@ -1,5 +1,5 @@
 module Spree
-  class Calculator::Temando < Calculator
+  class Calculator::TemandoQuote < Calculator
     # TODO: Add option to select insured
     # TODO: Add option to select express
 
