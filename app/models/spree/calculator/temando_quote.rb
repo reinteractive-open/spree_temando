@@ -19,7 +19,7 @@ module Spree
     def estimate(destination, line_items)
       find_quotes(destination, line_items)
       cheapest = quotes.sort_by { |q| q.total_price }.first
-      { :price => cheapest.total_price, :minimum_eta => cheapest.minimum_eta, :maximum_eta => cheapest.maximum_eta }
+      { :price => cheapest.total_price, :minimum_eta => cheapest.minimum_eta, :maximum_eta => cheapest.maximum_eta, :quote => cheapest }
     end
 
     def temando_origin
@@ -27,7 +27,25 @@ module Spree
     end
 
     def compute(object)
-      estimate(object.shipping_address.to_temando_location, object.line_items)
+      if object.temando_quote.blank? || object.temando_quote.outdated? then
+        Spree::Order.transaction do
+          data = estimate(object.shipping_address.to_temando_location, object.line_items)
+
+          # Store the Quote data against the Order and these LineItems if they are persisted
+          quote = Spree::TemandoQuote.new(data[:quote].merge(:address => object.shipping_address))
+
+          if object.persisted? then
+            quote.save!
+
+            object.temando_quote = quote
+            object.save!
+
+            object.line_items.each { |item| item.update_attribute(:temando_quote_id, quote.id) }
+          end
+        end
+      end
+
+      object.temando_quote.total_price
     end
 
 private
