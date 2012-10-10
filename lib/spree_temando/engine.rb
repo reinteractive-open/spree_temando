@@ -9,6 +9,7 @@ module SpreeTemando
       Dir.glob(File.join(File.dirname(__FILE__), "../../app/**/*_decorator*.rb")) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
+      Temando::Api::Base.logger = Rails.logger
     end
 
     initializer "spree_temando.register.shipping_calculators" do |app|
