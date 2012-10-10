@@ -1,14 +1,10 @@
 module SpreeTemando
   module VariantShippingDecorator
-    def estimate_shipping(source, destination)
-      delivery = Temando::Delivery::DoorToDoor.new(source, destination)
-
-      request = Temando::Request.new
-      request.items << self.to_temando_item
-
-      quotes = request.quotes_for(delivery)
-      cheapest = quotes.sort_by { |q| q.total_price }.first
-      { :price => cheapest.total_price, :minimum_eta => cheapest.minimum_eta, :maximum_eta => cheapest.maximum_eta }
+    def estimate_shipping(destination)
+      line_item = Spree::LineItem.new
+      line_item.variant = self
+      line_item.quantity = 1
+      Spree::Calculator::Temando.new.estimate_cheapest(destination, [line_item])
     end
 
     def to_temando_item
