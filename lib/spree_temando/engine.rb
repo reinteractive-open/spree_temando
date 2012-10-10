@@ -12,7 +12,7 @@ module SpreeTemando
     end
 
     initializer "spree_temando.register.shipping_calculators" do |app|
-      app.config.spree.calculators.add_class(Spree::Calculator::Temando)
+      app.config.spree.calculators.shipping_methods << Spree::Calculator::Temando
     end
 
     config.to_prepare &method(:activate).to_proc
