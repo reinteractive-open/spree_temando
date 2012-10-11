@@ -46,9 +46,9 @@ module Spree
 
           data = estimate(destination.to_temando_location, object.line_items)
 
-          # Store the Quote data against the Order and these LineItems if they are persisted
           quote = Spree::TemandoQuote.new_or_update_from_quote(object, data[:quote], destination)
 
+          # Store the Quote data against the Order and these LineItems if they are persisted
           if object.persisted? then
             quote.save!
 

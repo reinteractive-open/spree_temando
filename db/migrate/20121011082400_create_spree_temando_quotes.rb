@@ -23,4 +23,3 @@ class CreateSpreeTemandoQuotes < ActiveRecord::Migration
     drop_table :spree_temando_quotes
   end
 end
-

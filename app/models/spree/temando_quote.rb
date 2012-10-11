@@ -21,7 +21,7 @@ module Spree
       q = object.temando_quote || Spree::TemandoQuote.new
 
       Rails.logger.debug quote.inspect
-      [ :total_price, :tax, :currency, :minimum_eta, :maximum_eta, :name, :base_price, :carrier_id ].each do |field|
+      [ :total_price, :tax, :currency, :minimum_eta, :maximum_eta, :name, :base_price, :guaranteed_eta, :carrier_id ].each do |field|
         q.send("#{field}=".to_sym, quote.send(field))
       end
 
