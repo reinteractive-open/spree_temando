@@ -20,6 +20,12 @@ module Spree
     def self.new_or_update_from_quote(object, quote, address)
       q = object.temando_quote || Spree::TemandoQuote.new
 
+      if object.is_a?(Spree::Order) then
+        q.order = object
+      else
+        q.shipment = object
+      end
+
       Rails.logger.debug quote.inspect
       [ :total_price, :tax, :currency, :minimum_eta, :maximum_eta, :name, :base_price, :guaranteed_eta, :carrier_id ].each do |field|
         q.send("#{field}=".to_sym, quote.send(field))
