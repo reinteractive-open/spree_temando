@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Adds temando shipping support to Spree"
   s.description = "Adds temando shipping support to Spree"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency 'spree_core', "~> 1.1.1"
