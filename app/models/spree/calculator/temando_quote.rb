@@ -12,8 +12,8 @@ module Spree
       I18n.t(:temando)
     end
 
-    def self.available?(object)
-      true
+    def available?(object)
+      object.line_items.all? { |li| li.variant.temando_quotable? }
     end
 
     def cheapest(destination, line_items)

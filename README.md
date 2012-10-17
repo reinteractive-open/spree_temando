@@ -48,6 +48,10 @@ In the calculations, the extension always attempts to find the cheapest
 quote, but when `Express` is selected, only the quotes with the smallest
 `maximum_eta` are considered.
 
+It's important to note that all products in the cart must have their
+dimensions filled out (height, length, depth, weight), otherwise Temando
+will not be able to quote.
+
 ## Notes
 
 The extension only makes requests to the Temando API when the order
