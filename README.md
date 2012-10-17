@@ -30,6 +30,9 @@ Temando::Api::Base.config.password = ENV['TEMANDO_PASSWORD']
 
 The extension adds a new Shipping calculator.
 
+*NOTE* this extension assumes that all product dimensions are in
+centimetres, with weights in kilograms.
+
 Add a new Shipping Method from the Spree Admin (under Configuration >
 Shipping Methods), and you can set the relevant calculator type to
 `Temando`.
