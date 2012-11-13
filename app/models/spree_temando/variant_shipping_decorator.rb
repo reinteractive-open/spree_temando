@@ -10,6 +10,7 @@ module SpreeTemando
     def to_temando_item
       return nil unless self.temando_quotable?
       item = Temando::Item::GeneralGoods.new
+      item.packaging_optimization = self.packaging_optimization
       # NOTE: All the distances in Temando are in metres
       item.height = (self.height / 100.0)
       item.length = (self.depth / 100.0)
