@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = SpreeTemando::VERSION
   s.authors     = ["Jason Stirk"]
   s.email       = ["jason@reinteractive.net"]
-  s.homepage    = "http://github.com/reInteractive/spree_temando"
+  s.homepage    = "https://github.com/reInteractive-open/spree_temando"
   s.summary     = "Adds temando shipping support to Spree"
   s.description = "Adds temando shipping support to Spree"
 
