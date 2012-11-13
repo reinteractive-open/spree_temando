@@ -36,7 +36,7 @@ module Spree
         q.shipment = object
       end
 
-      [ :total_price, :tax, :currency, :minimum_eta, :maximum_eta, :name, :base_price, :guaranteed_eta, :carrier_id ].each do |field|
+      [ :total_price, :tax, :currency, :minimum_eta, :maximum_eta, :name, :base_price, :guaranteed_eta, :carrier_id, :carrier_name, :carrier_phone, :delivery_method ].each do |field|
         q.send("#{field}=".to_sym, quote.send(field))
       end
 
