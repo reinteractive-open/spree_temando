@@ -18,15 +18,25 @@ module Spree
 
     def cheapest(destination, line_items)
       quotes = find_quotes(destination, line_items)
+      return nil if quotes.nil?
       cheapest = quotes.sort_by { |q| q.total_price }.first
-      { :price => cheapest.total_price, :minimum_eta => cheapest.minimum_eta, :maximum_eta => cheapest.maximum_eta, :quote => cheapest }
+      if cheapest then
+        { :price => cheapest.total_price, :minimum_eta => cheapest.minimum_eta, :maximum_eta => cheapest.maximum_eta, :quote => cheapest }
+      else
+        nil
+      end
     end
 
     def fastest(destination, line_items)
       quotes = find_quotes(destination, line_items)
+      return nil if quotes.nil?
       fastest_eta = quotes.collect(&:maximum_eta).min
       cheapest = quotes.reject { |q| q.maximum_eta > fastest_eta }.sort_by { |q| q.total_price }.first
-      { :price => cheapest.total_price, :minimum_eta => cheapest.minimum_eta, :maximum_eta => cheapest.maximum_eta, :quote => cheapest }
+      if cheapest then
+        { :price => cheapest.total_price, :minimum_eta => cheapest.minimum_eta, :maximum_eta => cheapest.maximum_eta, :quote => cheapest }
+      else
+        nil
+      end
     end
 
     def temando_origin
@@ -57,6 +67,8 @@ module Spree
             data = cheapest(destination.to_temando_location, object.line_items)
           end
 
+          return if data.nil?
+
           quote = Spree::TemandoQuote.new_or_update_from_quote(self, object, data[:quote], destination)
 
           # Store the Quote data against the Order and these LineItems if they are persisted
@@ -77,12 +89,16 @@ private
     def find_quotes(destination, line_items)
       delivery = Temando::Delivery::DoorToDoor.new(self.temando_origin, destination)
 
-      request = Temando::Request.new
-      line_items.reject { |i| i.quantity < 1 }.each do |item|
-        request.items << item.to_temando_item
-      end
+      begin
+        request = Temando::Request.new
+        line_items.reject { |i| i.quantity < 1 }.each do |item|
+          request.items << item.to_temando_item
+        end
 
-      request.quotes_for(delivery)
+        request.quotes_for(delivery)
+      rescue Temando::Api::Exceptions::SoapError
+        return nil
+      end
     end
   end
 end
