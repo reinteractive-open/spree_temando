@@ -55,6 +55,32 @@ It's important to note that all products in the cart must have their
 dimensions filled out (height, length, depth, weight), otherwise Temando
 will not be able to quote.
 
+## Padding
+
+Depending on how you actually fulfil the shipments, you might like to
+add some padding to the ETA days provided by Temando. This allows you
+to better manage customer expectations.
+
+In this case, you have three fields to tweak:
+
+* `Minimum ETA` - the minimum days it will take to ship and deliver. The
+days provided will never be less than this value.
+* `Pad Minimum` - The number of days to pad the "Minimum ETA" by.
+* `Pad Maximum` - the number of days to pad the "Maximum ETA" by.
+
+For example, if you know it's always going to take at least 3 days to
+get an order boxed up before you can ship it, you might set each of the
+"pad" values to 3 days, turning a quote for 1-3 days into 4-6 days.
+
+Another example is where you know there are frequently delays with your
+usual shipping provider. In this case, you might set the minimum ETA to
+5, and set each of the padding values to 2. If temando offers a quote at
+1-2 days, this will turn into 5-7.
+
+In this case, the lowest number is forced by the minimum eta setting.
+The highest number is forced to the same value (as it's under 5) and
+then padded by 2.
+
 ## Customisations
 
 To simplify all the options for feeding product data to Temando, you can
