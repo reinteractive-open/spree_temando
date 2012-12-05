@@ -22,6 +22,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '~> 2.11.0'
   s.add_development_dependency 'faker'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'pry-remote'
+  s.add_development_dependency 'rake'
 end
