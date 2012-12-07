@@ -95,7 +95,9 @@ private
       begin
         request = Temando::Request.new
         line_items.reject { |i| i.quantity < 1 }.each do |item|
-          request.items << item.to_temando_item
+          item = item.to_temando_item
+          return nil if item.nil?
+          request.items << item
         end
 
         request.quotes_for(delivery)
